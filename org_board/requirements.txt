@@ -1,0 +1,7 @@
+# Arabic Organizational Board — الزمرة السادسة
+# Print-ready foam board: 100 cm × 70 cm landscape
+
+pillow>=10.0.0
+reportlab>=4.0.0
+arabic-reshaper>=3.0.0
+python-bidi>=0.4.0
