@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>مولّد ATO — JASEM</title>
+    <meta
+      name="description"
+      content="صفحة مجانية لتوليد أمر المهام الجوية (ATO) بصيغة USMTF — بدون Excel أو اشتراكات."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Noto+Kufi+Arabic:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="atmosphere" aria-hidden="true"></div>
+
+    <header class="top">
+      <p class="brand">JASEM</p>
+      <h1>مولّد أمر المهام الجوية <span lang="en">ATO</span></h1>
+      <p class="lede">
+        عبّي الخانات واضغط Generate ATO — يظهر الأمر جاهزاً للنسخ أو الطباعة، بدون Excel أو اشتراكات.
+      </p>
+    </header>
+
+    <main class="layout">
+      <form id="ato-form" class="form" novalidate>
+        <section class="block" aria-labelledby="hdr-header">
+          <h2 id="hdr-header">رأس الأمر</h2>
+          <div class="grid">
+            <label>
+              <span>نوع الرسالة</span>
+              <select name="msgKind" id="msgKind">
+                <option value="OPER">عملية OPER</option>
+                <option value="EXER">تمرين EXER</option>
+              </select>
+            </label>
+            <label class="wide">
+              <span>اسم العملية / التمرين</span>
+              <input name="operation" id="operation" type="text" value="ZUMRAH SIX TRAINING" required />
+            </label>
+            <label>
+              <span>الجهة المصدرة</span>
+              <input name="originator" id="originator" type="text" value="JASEM AOC" required />
+            </label>
+            <label>
+              <span>رقم الرسالة</span>
+              <input name="serial" id="serial" type="text" value="ATO-01" required />
+            </label>
+            <label>
+              <span>الشهر</span>
+              <select name="month" id="month"></select>
+            </label>
+            <label>
+              <span>صفة الرسالة</span>
+              <select name="qualifier" id="qualifier">
+                <option value="INI">أصلية INI</option>
+                <option value="CHG">تعديل CHG</option>
+              </select>
+            </label>
+            <label>
+              <span>رقم التعديل</span>
+              <input name="chgSerial" id="chgSerial" type="text" value="1" />
+            </label>
+            <label>
+              <span>إقرار الاستلام</span>
+              <select name="ack" id="ack">
+                <option value="NO">لا</option>
+                <option value="YES">نعم</option>
+              </select>
+            </label>
+            <label>
+              <span>من (Zulu)</span>
+              <input name="periodFrom" id="periodFrom" type="text" placeholder="180000ZNOV26" required />
+            </label>
+            <label>
+              <span>إلى (Zulu)</span>
+              <input name="periodTo" id="periodTo" type="text" placeholder="182359ZNOV26" required />
+            </label>
+          </div>
+        </section>
+
+        <section class="block" aria-labelledby="hdr-unit">
+          <h2 id="hdr-unit">الوحدة المكلّفة</h2>
+          <div class="grid">
+            <label class="wide">
+              <span>اسم الوحدة</span>
+              <input name="taskUnit" id="taskUnit" type="text" value="الزمرة السادسة" required />
+            </label>
+            <label>
+              <span>الموقع / ICAO</span>
+              <input name="unitLoc" id="unitLoc" type="text" value="OMDB" required />
+            </label>
+          </div>
+        </section>
+
+        <section class="block" aria-labelledby="hdr-msn">
+          <h2 id="hdr-msn">بيانات المهمة</h2>
+          <div class="grid">
+            <label>
+              <span>رقم المهمة</span>
+              <input name="msnNum" id="msnNum" type="text" value="ZS2601" required />
+            </label>
+            <label>
+              <span>الحزمة Package</span>
+              <input name="package" id="package" type="text" value="DESERT HAWK" />
+            </label>
+            <label>
+              <span>قائد الحزمة</span>
+              <select name="mc" id="mc">
+                <option value="">—</option>
+                <option value="MC" selected>MC</option>
+              </select>
+            </label>
+            <label>
+              <span>نوع المهمة</span>
+              <select name="msnType" id="msnType">
+                <option>CAS</option>
+                <option>AI</option>
+                <option selected>CAP</option>
+                <option>BARCAP</option>
+                <option>SEAD</option>
+                <option>OCA</option>
+                <option>DCA</option>
+                <option>RECCE</option>
+                <option>AAR</option>
+                <option>TRN</option>
+              </select>
+            </label>
+            <label>
+              <span>مهمة ثانوية</span>
+              <input name="msnType2" id="msnType2" type="text" placeholder="—" />
+            </label>
+            <label>
+              <span>حالة الإنذار</span>
+              <input name="alert" id="alert" type="text" placeholder="12H" value="-" />
+            </label>
+            <label>
+              <span>مغادرة DEPLOC</span>
+              <input name="depLoc" id="depLoc" type="text" value="OMDB" required />
+            </label>
+            <label>
+              <span>عودة ARRLOC</span>
+              <input name="arrLoc" id="arrLoc" type="text" value="OMDB" required />
+            </label>
+            <label>
+              <span>عدد ونوع الطائرات</span>
+              <input name="acCountType" id="acCountType" type="text" value="2F16" required />
+            </label>
+            <label>
+              <span>النداء Callsign</span>
+              <input name="callsign" id="callsign" type="text" value="FALCON 21" required />
+            </label>
+            <label>
+              <span>تكوين أساسي</span>
+              <input name="config1" id="config1" type="text" value="BEST" />
+            </label>
+            <label>
+              <span>تكوين ثانوي</span>
+              <input name="config2" id="config2" type="text" value="-" />
+            </label>
+            <label>
+              <span>IFF / SIF</span>
+              <input name="iff" id="iff" type="text" value="20001" />
+            </label>
+          </div>
+        </section>
+
+        <section class="block" aria-labelledby="hdr-loc">
+          <h2 id="hdr-loc">الموقع / الهدف</h2>
+          <div class="grid">
+            <label>
+              <span>نوع الموقع</span>
+              <select name="locMode" id="locMode">
+                <option value="AMSNLOC">منطقة مهمة AMSNLOC</option>
+                <option value="GTGTLOC">هدف أرضي GTGTLOC</option>
+              </select>
+            </label>
+            <label>
+              <span>بداية / TOT (Zulu)</span>
+              <input name="tot" id="tot" type="text" placeholder="180900ZNOV" value="180900ZNOV" required />
+            </label>
+            <label>
+              <span>نهاية / NLT</span>
+              <input name="nlt" id="nlt" type="text" placeholder="181100ZNOV" value="181100ZNOV" />
+            </label>
+            <label>
+              <span>لا أبكر من NET</span>
+              <input name="net" id="net" type="text" placeholder="180855ZNOV" value="180855ZNOV" />
+            </label>
+            <label class="wide">
+              <span>اسم المنطقة / الهدف</span>
+              <input name="locName" id="locName" type="text" value="AREA NORTH" required />
+            </label>
+            <label>
+              <span>الارتفاع (×100 قدم)</span>
+              <input name="altitude" id="altitude" type="text" value="250" />
+            </label>
+            <label>
+              <span>الأولوية</span>
+              <input name="priority" id="priority" type="text" value="1" />
+            </label>
+            <label>
+              <span>معرف الهدف ID</span>
+              <input name="tgtId" id="tgtId" type="text" placeholder="N1234..." />
+            </label>
+            <label class="wide">
+              <span>إحداثيات DMPI</span>
+              <input name="dmpi" id="dmpi" type="text" placeholder="251500N0551500E" />
+            </label>
+          </div>
+        </section>
+
+        <section class="block" aria-labelledby="hdr-extra">
+          <h2 id="hdr-extra">اختياري</h2>
+          <div class="grid">
+            <label>
+              <span>نداء السيطرة</span>
+              <input name="ctrlCall" id="ctrlCall" type="text" placeholder="MAGIC" />
+            </label>
+            <label>
+              <span>تردد أساسي</span>
+              <input name="ctrlFreq" id="ctrlFreq" type="text" placeholder="235.6" />
+            </label>
+            <label class="wide">
+              <span>ملاحظات NARR</span>
+              <input name="narr" id="narr" type="text" placeholder="ملاحظات حرة تُضاف في نهاية الأمر" />
+            </label>
+          </div>
+        </section>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" id="generate">Generate ATO</button>
+          <button type="button" class="btn ghost" id="fill-today">تعبئة توقيت اليوم</button>
+          <button type="reset" class="btn ghost">مسح</button>
+        </div>
+      </form>
+
+      <aside class="output-panel" aria-labelledby="out-title">
+        <div class="output-head">
+          <h2 id="out-title">الأمر الجاهز</h2>
+          <div class="output-actions">
+            <button type="button" class="btn small" id="copy" disabled>نسخ</button>
+            <button type="button" class="btn small" id="print" disabled>طباعة</button>
+          </div>
+        </div>
+        <pre id="output" class="output" aria-live="polite">اضغط Generate ATO لعرض الأمر هنا.</pre>
+        <p id="status" class="status" role="status"></p>
+      </aside>
+    </main>
+
+    <footer class="foot">
+      <p>يعمل بالكامل في المتصفح — لا رفع بيانات ولا اشتراك.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
